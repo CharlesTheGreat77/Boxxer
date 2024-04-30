@@ -1,0 +1,4 @@
+pytest-playwright
+playwright-stealth
+browserforge
+setuptools
