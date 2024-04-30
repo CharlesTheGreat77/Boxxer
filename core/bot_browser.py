@@ -10,7 +10,7 @@ def playwright_browser(playwright, target) -> None:
     '''
     fingerprints = FingerprintGenerator()
     fingerprint = fingerprints.generate()
-    browser = playwright.chromium.launch(headless=False, proxy={'server':'http://72.10.164.178:7443'})
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
     stealth_sync(page)
