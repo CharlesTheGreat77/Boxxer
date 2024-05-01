@@ -11,7 +11,7 @@ def playwright_browser(playwright, target) -> None:
     fingerprints = FingerprintGenerator()
     fingerprint = fingerprints.generate()
     browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
+    context = NewContext(browser, fingerprint=fingerprint)
     page = context.new_page()
     stealth_sync(page)
     page.goto("https://store.usps.com/store/product/shipping-supplies/priority-mail-flat-rate-padded-envelope-P_EP14PE")
