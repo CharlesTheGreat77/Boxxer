@@ -1,0 +1,8 @@
+{
+    "boxes": {
+        "small" : "https://store.usps.com/store/product/priority-mail-flat-rate-small-box-P_SMALL_FRB",
+        "medium" : "https://store.usps.com/store/product/priority-mail-flat-rate-medium-box-P_O_FRB1",
+        "side-medium" : "https://store.usps.com/store/product/priority-mail-flat-rate-side-loading-medium-box-P_O_FRB2",
+        "large" : "https://store.usps.com/store/product/priority-mail-flat-rate-large-box-P_LARGE_FRB"
+    }
+}

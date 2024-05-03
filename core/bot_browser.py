@@ -4,18 +4,25 @@ from browserforge.fingerprints import FingerprintGenerator
 from playwright_stealth import stealth_sync
 
 # function to order boxes on usps to a given target
-def playwright_browser(playwright, target) -> None:
+def playwright_browser(playwright, target, url, box_count) -> None:
     '''
     function to go to usps, check out x amount of boxes, create an account, and confirm the shipping
     '''
     fingerprints = FingerprintGenerator()
     fingerprint = fingerprints.generate()
-    browser = playwright.chromium.launch(headless=False, proxy={'server':'http://72.10.164.178:7443'})
+    browser = playwright.webkit.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
     stealth_sync(page)
-    page.goto("https://store.usps.com/store/product/shipping-supplies/priority-mail-flat-rate-padded-envelope-P_EP14PE")
-    page.locator("#availabilityControl span").first.click(click_count=5) # default amount of boxes..
+    page.goto(f"{url}")
+
+    try:
+        page.locator("#cartQuantity", timeout=2000).click()
+        page.locator("#cartQuantity").fill(f"{box_count}") # default amount is 1
+    except:
+        if box_count != 1:
+            page.locator("#availabilityControl span").nth(str(box_count-1)).click()
+
     print("[*] Adding to cart..")
     page.get_by_role("button", name="Add to Cart").click()
     print("[*] Checking out..")
@@ -25,11 +32,11 @@ def playwright_browser(playwright, target) -> None:
     # set a username
     page.get_by_role("link", name="Sign Up Now").click()
     page.get_by_label("* Username").click()
-    page.get_by_label("* Username").fill(f"{target.random_last_name + target.random_first_name + str(secrets.randbits(random.randint(4,11)))}")
+    page.get_by_label("* Username").fill(f"{target.random_last_name + str(secrets.randbits(random.randint(4,11))) + target.random_first_name}")
 
     # stupid lil password
     page.get_by_label("* Password").click()
-    password = f'P@ssW0rd{str(random.randint(1,10000))}'
+    password = f'P@ssW0rd0912'
     page.get_by_label("* Password").fill(password)
     page.get_by_label("* Password").press("Tab")
     page.get_by_label("* Re-Type Password").click()
@@ -74,29 +81,33 @@ def playwright_browser(playwright, target) -> None:
     page.get_by_text("Verify Address").click()
     page.get_by_text("Create Account").click()
 
-    '''
-    Program stops here due to usps taking the service down..
-    '''
-
     # wait 7 seconds..
     page.wait_for_timeout(timeout=7000)
 
     # try to check out..
     print("[*] Checking out...")
     page.get_by_role("button", name="Check Out Now").click()
-    page.locator("input[name=\"ci22426006164\"]").click()
-    page.locator("input[name=\"ci22426006164\"]").press("ArrowRight")
-    page.locator("input[name=\"ci22426006164\"]").fill("1")
+    page.wait_for_selector('.ship-to-this-address-btn')
+    page.click('.ship-to-this-address-btn')
+
+    # depending on the address.. this button will appear..
     try:
-        page.get_by_role("button", name="Update").click()
-        page.get_by_role("button", name="Check Out Now").click()
-    except Exception as msg:
-        print(msg)
+        print("[*] Confirming ground shipment option..")
+        page.get_by_label("USPS Ground Advantage™:", timeout=2000).check()
+    except:
         pass
-    page.get_by_role("button", name="Ship to this Address").click()
-    page.get_by_label("USPS Ground Advantage™:").check()
-    page.get_by_role("button", name="Confirm Shipment").click()
+    
+    # depending on the address.. this button will appear..
+    try:
+        print("[*] Confirming shipment..")
+        page.get_by_role("button", name="Confirm Shipment", timeout=2000).click()
+    except:
+        pass
+    print("[*] Placing Order..")
+
+    # page.wait_for_selector('#placeMyOrderBtn')
+    # page.click('#placeMyOrderBtn')
     page.get_by_role("button", name="Place My Order").click()
-    page.wait_for_timeout(30000) # keeping this here so the user can "agree" to terms button..
+    page.wait_for_timeout(15000) # keeping this here so the user can "agree" to the terms & conditions..
     context.close()
     browser.close()
