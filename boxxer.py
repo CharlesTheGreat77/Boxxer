@@ -28,7 +28,7 @@ with open('boxes.json', 'r') as file:
 # set attributes
 target = Target(args.street, args.city, args.zip)
 target.state = target.get_abbreviated_states(args.state)
-target.random_first_name, target.random_last_name, target.random_city = Target.get_random_information()
+target.random_first_name, target.random_last_name, target.random_city = target.get_random_information()
 target.random_phone_number = target.get_random_phone_number()
 target.random_email = target.get_random_email(target.random_first_name, target.random_last_name)
 
