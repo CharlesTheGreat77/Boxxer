@@ -1,6 +1,5 @@
-# Script to automatically send a target boxes from USPS
+# Spam Boxes with USPS 📦
 
-# Description
 This script is to show that even decades later, boxes can be spammed to a target address
 for the sake of irritation. A max of 500 boxes can be sent, but that is for only ONE order or ONE account.
 This can lead to an attacker sending thousands of boxes throughout the day, week, etc. to a given target.
@@ -10,23 +9,25 @@ This script creates an account, and orders x amount of boxes from a given input 
 
 
 # Disclaimer
+```
 This script is for educational purposes only or if YOU truly need boxes to be sent to your place of stay.
 I am not responsible for the usage of this utility, nor do I claim any responsibility for any actions by
 others from the use of this utility.
+```
 
 # Boxxer
 ```
-       +--------------+
-      /|             /| 
-     / |            / |
-    *--+-----------*  |
-    | USPS Shipping|  |
-    |  |           |  |
-    |  |           |  |
-    |  +-----------+--+
-    | /            | /
-    |/             |/
-    *--------------*     [Boxxer]
+      _________
+    .`.        `.
+   /   \ .======.\
+   |   | |______||
+   |   |   _____ |
+   |   |  /USPS/ |
+   |   | /____/  |
+   | _ |         |
+   |/ \|.-"```"-.|
+   `` |||      |||
+      `"`      `"   [Boxxer]
 ```
 
 # Prerequisites
@@ -58,6 +59,10 @@ options:
                         specify the street address [Nevada]
   -c CITY, --city CITY  specify the city the address resides in [Las Vegas]
   -z ZIP, --zip ZIP     specify the zip code of the address [87112]
+  -size SIZE, --size SIZE
+                        specify the box size [options: small, medium, side-medium large]
+  -a AMOUNT, --amount AMOUNT
+                        specify the amount of boxes to send [default: 1]
 ```
 
 # 💬 Contact Me 
