@@ -3,12 +3,10 @@
 # Description
 This script is to show that even decades later, boxes can be spammed to a target address
 for the sake of irritation. A max of 500 boxes can be sent, but that is for only ONE order or ONE account.
-This can leads to an attacker sending thousands of boxes throughout the day, week, etc. to a given target.
+This can lead to an attacker sending thousands of boxes throughout the day, week, etc. to a given target.
 
-* Key Note
-    - This no longer is working since yesterday due to them taking the option to deliver boxes for free down..
-    - We will see how they go about mitigating such and go from there in a later time.
-    - For now I'm going to leave this code here as a base. (Never tried it with premade accounts 👀)
+# But how?
+This script creates an account, and orders x amount of boxes from a given input of an address, street, city, and zip code. It will go about the box shipping process and stop at the terms and service agreement prior to shipping! 
 
 
 # Disclaimer
@@ -16,6 +14,7 @@ This script is for educational purposes only or if YOU truly need boxes to be se
 I am not responsible for the usage of this utility, nor do I claim any responsibility for any actions by
 others from the use of this utility.
 
+# Boxxer
 ```
        +--------------+
       /|             /| 
